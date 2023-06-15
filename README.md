@@ -87,7 +87,7 @@ To execute the training simply run:
 train_anymal_ppo.py
 ```
 The expected outcome of the training will look something like this:
-
+![title_img](images/anymal_running.gif)
 
 ## Reacher PPO Training
 The reacher can be trained using PPO RL:
@@ -113,5 +113,5 @@ With this we are able to achieve the following results:
 
 ## ANYmal APG Training
 So far we were not able to achieve walking behavior of ANYmal solely by using APG. However, we successfully used APG in order to acheive standup motions:
-![anymal_apg](images/reacher_apg.gif)
+![anymal_apg](images/anymal_apg.gif)
 The training code for this will follow shortly.
