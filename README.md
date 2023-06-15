@@ -82,6 +82,12 @@ Models and videos of the training run can be seen for each experiment run at the
 
 ## ANYmal PPO Training
 In order to train walking motions for the quadrupedal robot ANYmal, first a new environment had to be created. It can be found in [this folder](./src/anymal_brax/envs/).
+To execute the training simply run:
+```bash
+train_anymal_ppo.py
+```
+The expected outcome of the training will look something like this:
+
 
 ## Reacher PPO Training
 The reacher can be trained using PPO RL:
