@@ -18,8 +18,7 @@ class CustomInstallCommand(install):
 setup(name='anymal_brax',
       version='1.0',
       author='Julian Nubert (nubertj@ethz.ch)',
-      package_dir={"": "."},
-      packages=['anymal_brax'],
+      package_dir={"": "src"},
       install_requires=[
       ],
       scripts=['bin/test_jax_gpu.py'],
