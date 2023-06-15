@@ -1,0 +1,4 @@
+[submodule "brax"]
+	path = submodules/brax
+	url = https://github.com/google/brax.git
+	branch = v0.9.1
