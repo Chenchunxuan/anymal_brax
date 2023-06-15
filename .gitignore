@@ -1,2 +1,4 @@
 *.egg-info
+*.pyc
+src/anymal_brax/__pycache__
 mlruns
