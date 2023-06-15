@@ -51,7 +51,8 @@ Slow took 0.11339068412780762
 you are good to go.
 
 ### Environment Setup
-In a next setup, you can install our environment. This will also install the [BRAX library](https://github.com/google/brax/tree/v0.9.1) at release `v0.9.1` automatically for you.
+In a next setup, you can install our environment. This will also install the [BRAX library](https://github.com/google/brax/tree/v0.9.1) at release `v0.9.1` for you.
 ```bash
-
+pip install -e submodules/brax
+pip install -e .
 ```

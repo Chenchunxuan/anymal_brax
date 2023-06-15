@@ -19,8 +19,8 @@ setup(name='anymal_brax',
       version='1.0',
       author='Julian Nubert (nubertj@ethz.ch)',
       package_dir={"": "."},
+      packages=['anymal_brax'],
       install_requires=[
-          'git+https://github.com/google/brax/tree/v0.9.1'
       ],
       scripts=['bin/test_jax_gpu.py'],
       license='BSD-3-Clause',
