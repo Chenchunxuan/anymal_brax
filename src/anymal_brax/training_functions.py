@@ -50,7 +50,7 @@ def setup_train_fn(config: dict):
       'halfcheetah': functools.partial(config["training_agent"].train, num_timesteps=50_000_000, num_evals=20, reward_scaling=1, episode_length=config["episode_length"], normalize_observations=True, action_repeat=1, unroll_length=20, num_minibatches=32, num_updates_per_batch=8, discounting=0.95, learning_rate=config["learning_rate"], entropy_cost=0.001, num_envs=2048, batch_size=512, seed=3),
       'pusher': functools.partial(config["training_agent"].train, num_timesteps=50_000_000, num_evals=20, reward_scaling=5, episode_length=config["episode_length"], normalize_observations=True, action_repeat=1, unroll_length=30, num_minibatches=16, num_updates_per_batch=8, discounting=0.95, learning_rate=config["learning_rate"], entropy_cost=1e-2, num_envs=2048, batch_size=512, seed=3),
     }[config["env_name"]]
-    config["training_agent_name"] = 'ppo_sac'
+    config["training_agent_name"] = 'ppo'
   elif config["training_agent"] == apg:
     train_fn = {
       'anymal_c': functools.partial(config["training_agent"].train, num_timesteps=20_000_000, num_evals=10, reward_scaling=0.1, episode_length=config["episode_length"], normalize_observations=True, action_repeat=1, unroll_length=5, num_minibatches=32, num_updates_per_batch=8, discounting=0.97, learning_rate=2*config["learning_rate"], entropy_cost=1e-2, num_envs=config["num_envs"], batch_size=1024, seed=1),
@@ -189,10 +189,13 @@ def log_config(config):
 def log_html(html_path: str):
   mlflow.log_artifact(html_path)
 
+def log_model_params(pkl_file_path: str, model_params):
+  model.save_params(pkl_file_path, model_params)
+  mlflow.log_artifact(pkl_file_path)
+
 def log_best_model_params(data_container: dict):
   pkl_file_path = '/tmp/best_model_params_episode' + str(data_container["best_episode_index"]) + ".pkl"
-  model.save_params(pkl_file_path, data_container["best_episode_model_params"])
-  mlflow.log_artifact(pkl_file_path)
+  log_model_params(pkl_file_path=pkl_file_path, model_params=data_container["best_episode_model_params"])
 
 # Training function
 def train(config: dict):
@@ -221,8 +224,8 @@ def train(config: dict):
     print_training_summary(data_container, training_metrics)
 
     # Logging ---------------------------------------------------------------------
-    model.save_params('/tmp/params', params)
-    last_params = model.load_params('/tmp/params')
+    log_model_params(pkl_file_path='/tmp/last_model_params_episode' + str(config["num_episodes"]) + ".pkl", model_params=params)
+    last_params = model.load_params('/tmp/last_model_params_episode' + str(config["num_episodes"]) + ".pkl")
 
     # Log video of last ----------------------------------------------------------------
     rollout_last = run_rollout(last_params, config=config, make_policy=make_inference_fn, env=env)

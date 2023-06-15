@@ -78,15 +78,34 @@ This should output something like:
 Hold ctr and click on the link (`http://127.0.0.1:5000`) to open the browser interface of the training run.
 On the left you will be able to see all the experiments (such as `apg_reacher`, `ppo_anymal`, etc.).
 
+Models and videos of the training run can be seen for each experiment run at the bottom in the section "Artifacts".
+
 ## ANYmal PPO Training
+In order to train walking motions for the quadrupedal robot ANYmal, first a new environment had to be created. It can be found in [this folder](./src/anymal_brax/envs/).
 
 ## Reacher PPO Training
+The reacher can be trained using PPO RL:
+```bash
+train_reacher_ppo.py
+```
+The result can be found in MLFlow under the Experiments section as `ppo_reacher`. The result should look something like:
+![reacher_ppo](images/reacher_ppo.gif)
 
 ## Reacher APG Training
 As one of our main motivations for using BRAX was the availability of gradients, thanks to the differential nature of BRAX and JAX, we played around with the simplest method of its kind:
 the Analytical Policy Gradient (APG). As it is not clear how direct gradient learning will scale, due to issues such as
 * local optima and
 * vanishing/exploding gradients in longer trajectories,
-we first started by applying APG to the simpler benchmark of 
+
+we first started by applying APG to the simpler 2-dimensional reacher example.
+To run the training, simply run:
+```
+train_reacher.py
+```
+With this we are able to achieve the following results:
+![reacher_apg](images/reacher_apg.gif)
 
 ## ANYmal APG Training
+So far we were not able to achieve walking behavior of ANYmal solely by using APG. However, we successfully used APG in order to acheive standup motions:
+![anymal_apg](images/reacher_apg.gif)
+The training code for this will follow shortly.

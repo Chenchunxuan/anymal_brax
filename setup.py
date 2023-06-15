@@ -21,7 +21,7 @@ setup(name='anymal_brax',
       package_dir={"": "src"},
       install_requires=[
       ],
-      scripts=['bin/test_jax_gpu.py'],
+      scripts=['bin/test_jax_gpu.py', 'bin/train_reacher_ppo.py', 'bin/train_reacher_apg.py'],
       license='BSD-3-Clause',
       description='ANYmal BRAX',
       cmdclass={'install': CustomInstallCommand, },
